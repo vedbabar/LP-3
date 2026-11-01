@@ -22,7 +22,6 @@ contract Bank {
     }
 
     function deposit() public payable {
-        
         require(msg.value > 0,"Amount should be greater than 0");
         require(accHolder == msg.sender,"You are not the Real Account Holder");
         balance += msg.value;
