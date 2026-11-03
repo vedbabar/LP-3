@@ -1,49 +1,43 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <bits/stdc++.h>
 using namespace std;
 
-// Partition function
-int partition(int a[], int low, int high) {
-    int pivot = a[high];
-    int i = low - 1;
-    for (int j = low; j < high; j++) {
-        if (a[j] <= pivot) {
+int partition(vector<int>&v,int l,int h){
+    int pivot = v[h];
+    int i=l-1;
+    for(int j=l;j<h;j++){
+        if(v[j]<=pivot){
             i++;
-            swap(a[i], a[j]);
+            swap(v[i],v[j]);
         }
     }
-    swap(a[i + 1], a[high]);
-    return i + 1;
+    swap(v[i+1],v[h]);
+    return i+1;
 }
 
-// Deterministic Quick Sort
-void quickSort(int a[], int low, int high) {
-    if (low < high) {
-        int p = partition(a, low, high);
-        quickSort(a, low, p - 1);
-        quickSort(a, p + 1, high);
+void quickSort(vector<int>&v,int l,int h){
+    if(l<h){
+        int p=partition(v,l,h);
+        quickSort(v,l,p-1);
+        quickSort(v,p+1,h);
     }
 }
-
-// Randomized Quick Sort
-void randomQuickSort(int a[], int low, int high) {
-    if (low < high) {
-        int randomIndex = low + rand() % (high - low + 1);
-        swap(a[randomIndex], a[high]);
-        int p = partition(a, low, high);
-        randomQuickSort(a, low, p - 1);
-        randomQuickSort(a, p + 1, high);
+void rand_quickSort(vector<int>&v,int l,int h){
+    if(l<h){
+        int r = l+rand()%(h-l+1);
+        swap(v[r],v[h]);
+        int p=partition(v,l,h);
+        rand_quickSort(v,l,p-1);
+        rand_quickSort(v,p+1,h);
     }
 }
-
 int main() {
     srand(time(0));
 
-    int n, a[100], b[100];
-    cout << "Enter number of elements: ";
+    int n;
+
+    cout << "Enter n: ";
     cin >> n;
-    cout << "Enter elements:\n";
+    vector<int>a(n),b(n);
 
     for (int i = 0; i < n; i++) {
         cin >> a[i];
@@ -51,14 +45,13 @@ int main() {
     }
 
     quickSort(a, 0, n - 1);
+    rand_quickSort(b, 0, n - 1);
 
-    cout << "\nDeterministic Quick Sort:\n";
+    cout << "Deterministic: ";
     for (int i = 0; i < n; i++)
         cout << a[i] << " ";
 
-    randomQuickSort(b, 0, n - 1);
-
-    cout << "\nRandomized Quick Sort:\n";
+    cout << "\nRandomized: ";
     for (int i = 0; i < n; i++)
         cout << b[i] << " ";
 
