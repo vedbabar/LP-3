@@ -32,28 +32,24 @@ void rand_quickSort(vector<int>&v,int l,int h){
 }
 int main() {
     srand(time(0));
-
     int n;
-
-    cout << "Enter n: ";
-    cin >> n;
     vector<int>a(n),b(n);
-
+    cout << "Enter number of elements: ";
+    cin >> n;
+    cout << "Enter elements:\n";
     for (int i = 0; i < n; i++) {
         cin >> a[i];
         b[i] = a[i];
     }
-
     quickSort(a, 0, n - 1);
-    rand_quickSort(b, 0, n - 1);
-
-    cout << "Deterministic: ";
-    for (int i = 0; i < n; i++)
+    cout << "\nDeterministic Quick Sort:\n";
+    for (int i = 0; i < n; i++){
         cout << a[i] << " ";
-
-    cout << "\nRandomized: ";
-    for (int i = 0; i < n; i++)
+    }
+    rand_quickSort(b, 0, n - 1);
+    cout << "\nRandomized Quick Sort:\n";
+    for (int i = 0; i < n; i++){
         cout << b[i] << " ";
-
+    }
     return 0;
 }
